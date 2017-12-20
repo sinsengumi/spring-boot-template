@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.sinsengumi.sampleapp.repository.TestRepository">
+    <select id="test" resultType="_int">
+        select 1
+    </select>
+</mapper>

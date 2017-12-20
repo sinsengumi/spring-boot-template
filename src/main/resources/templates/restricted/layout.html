@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<title layout:title-pattern="$CONTENT_TITLE | $LAYOUT_TITLE">RESTRICTED</title>
+<meta charset="UTF-8" />
+</head>
+<body>
+  <header>
+    <a th:href="@{/restricted}">Header [<span th:text="${userName}">userName</span>]</a>
+  </header>
+  <hr />
+
+  <div class="content">
+    <th:block layout:fragment="content">
+      <p>Default layout content</p>
+    </th:block>
+  </div>
+
+  <hr />
+  <footer>Copyright &copy; 2017 sinsengumi.net. All Rights Reserved.</footer>
+</body>
+</html>
