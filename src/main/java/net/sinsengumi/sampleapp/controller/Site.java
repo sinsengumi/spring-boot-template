@@ -6,6 +6,7 @@ import lombok.Getter;
 @AllArgsConstructor
 @Getter
 public enum Site {
+    STATIC_CONTENTS("静的コンテンツ", "/public", false),
     API("API", "/api", false),
     SCREEN_RESTRICTED("管理画面", "/restricted", true),
     SCREEN_USER("ユーザ画面", "/", true);

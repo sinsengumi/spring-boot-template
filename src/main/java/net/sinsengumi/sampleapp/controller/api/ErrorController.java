@@ -1,7 +1,9 @@
 package net.sinsengumi.sampleapp.controller.api;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -16,7 +18,7 @@ import net.sinsengumi.sampleapp.util.AppUtil;
 public class ErrorController {
 
     @RequestMapping(value = "/api/error")
-    public ErrorResponse error(HttpServletRequest request) {
+    public ErrorResponse error(HttpServletRequest request, HttpServletResponse response) {
         Throwable e = (Throwable) request.getAttribute(GlobalErrorController.ERROR_EXCEPTION);
         if (e == null) {
             e = new ApplicationException("There is no global error.");
@@ -24,7 +26,9 @@ public class ErrorController {
 
         String errorCode = AppUtil.createErrorCode();
 
-        log.error(e.getMessage(), e);
+        if (response.getStatus() != HttpStatus.NOT_FOUND.value()) {
+            log.error(e.getMessage(), e);
+        }
 
         return ErrorResponse.build(errorCode, e);
     }

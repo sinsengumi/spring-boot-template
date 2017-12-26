@@ -11,6 +11,8 @@
   <hr />
 
   <div class="content">
+    <div th:if="${flashMessage}" th:text="${flashMessage}">flashMessage</div>
+
     <th:block layout:fragment="content">
       <p>Default layout content</p>
     </th:block>

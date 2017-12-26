@@ -1,8 +1,10 @@
 package net.sinsengumi.sampleapp.controller.user;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang3.exception.ExceptionUtils;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,7 +19,7 @@ import net.sinsengumi.sampleapp.util.AppUtil;
 public class ErrorController {
 
     @RequestMapping("/error")
-    public String error(HttpServletRequest request, Model model) {
+    public String error(HttpServletRequest request, HttpServletResponse response, Model model) {
         Throwable e = (Throwable) request.getAttribute(GlobalErrorController.ERROR_EXCEPTION);
         if (e == null) {
             e = new ApplicationException("There is no global error.");
@@ -25,7 +27,9 @@ public class ErrorController {
 
         String errorCode = AppUtil.createErrorCode();
 
-        log.error(e.getMessage(), e);
+        if (response.getStatus() != HttpStatus.NOT_FOUND.value()) {
+            log.error(e.getMessage(), e);
+        }
 
         model.addAttribute("errorCode", errorCode);
         model.addAttribute("stackTrace", ExceptionUtils.getStackTrace(e));
